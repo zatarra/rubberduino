@@ -1,6 +1,7 @@
 # coding=utf-8
 import json
 import sys
+import os
 
 ''' 
 Simple Rubber Ducky script converter by David Gouveia <david.gouveia [_at_] gmail.com
@@ -93,7 +94,6 @@ void loop(){}
 
 
 if __name__ == "__main__":
-  import os, sys
   if len(sys.argv) > 1 and os.path.isfile(sys.argv[1]):
     try:
       with open("payload", "r") as r:
@@ -103,5 +103,5 @@ if __name__ == "__main__":
       print "Error converting script: %s" % e.message
       sys.exit(1)
   else:
-    print "Usage:\n\n%s <rubber ducky script to be converted>" % argv[0]
+    print "Usage:\n\n%s <rubber ducky script to be converted>" % sys.argv[0]
     sys.exit(1)

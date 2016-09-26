@@ -6,7 +6,7 @@ def readme():
         return f.read()
 
 setup(
-    name=rubberduino,
+    name="rubberduino",
     version='0.1',
     description='Tool to convert Rubber Ducky scripts to arduino compatible code.',
     long_description=readme(),
@@ -20,11 +20,12 @@ setup(
     url='https://github.com/zatarra/rubberduino',
     author='zatarra',
     author_email='david.gouveia@gmail.com',
-    license=MIT,
+    license="MIT",
     packages=['rubberduino'],
     install_requires=[
         'markdown',
     ],
+    py_modules=['rubberduino'],
     include_package_data=True,
     zip_safe=False
 )
