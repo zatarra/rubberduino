@@ -21,11 +21,9 @@ setup(
     author='zatarra',
     author_email='david.gouveia@gmail.com',
     license="MIT",
-    packages=['rubberduino'],
+    packages=["rubberduino"],
     install_requires=[
         'markdown',
     ],
-    py_modules=['rubberduino'],
-    include_package_data=True,
-    zip_safe=False
+    scripts=["rubberduino-convert"]
 )
