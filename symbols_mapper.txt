@@ -1,0 +1,21 @@
+#include <Keyboard.h>
+// Rubber ducky script converter developed by: David Gouveia <david.gouveia [_at_] gmail.com>
+// https://www.davidgouveia.net
+// Basic Symbol Mapping application. This will allow you to check which symbols can be found on each number
+
+void setup(){
+  Keyboard.begin();
+  delay(5000);
+  for ( int i=0; i < 200; i++ )
+  {
+    Keyboard.print(i);
+    Keyboard.print(" maps to ");
+    Keyboard.write(i);
+    Keyboard.print( "\n" ); 
+  }
+
+  Keyboard.end();
+}
+
+
+void loop(){}
