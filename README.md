@@ -17,7 +17,34 @@ pip install git@github.com:zatarra/rubberduino.git#egg=rubberduino
 
 ## Adjust the symbol mapping
 
-Currently this is adjusted to PT keyboards. You can try to create a custom map that suits you by checking which numbers give you the desired symbols. The quick and dirty way of doing it is to use a small arduino sketch that will print out the corresponding symbols of each number. Please check the symbols_mapper.txt
+Currently this is adjusted to PT keyboards. You can try to create a custom map that suits you by checking which numbers give you the desired symbols. The quick and dirty way of doing it is to use a small arduino sketch that will print out the corresponding symbols of each number. Please check the symbols_mapper.txt or just load an arduino with the following sketch:
+
+```
+#include <Keyboard.h>
+// Rubber ducky script converter developed by: David Gouveia <david.gouveia [_at_] gmail.com>
+// https://www.davidgouveia.net
+// Basic Symbol Mapping application. This will allow you to check which symbols can be found on each number
+
+void setup(){
+  Keyboard.begin();
+  delay(5000);
+  for ( int i=0; i < 200; i++ )
+  {
+    Keyboard.print(i);
+    Keyboard.print(" maps to ");
+    Keyboard.write(i);
+    Keyboard.print( "\n" );
+  }
+
+  Keyboard.end();
+}
+
+
+void loop(){}
+```
+
+After uploading the sketch, you have five seconds to point the cursor to a text editor tool. It will start showing you symbols and their assigned number. Use this to build a new symbol map. 
+
 
 ## Develop
 
