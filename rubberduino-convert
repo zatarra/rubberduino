@@ -36,23 +36,31 @@ void type(int key){
   Keyboard.release(key);
 }
 
+void writeStr(byte *str, int len) {
+  for(int i=0;i<len;i++)
+    Keyboard.write(str[i]);
+}
+
 void loop(){}
 '''
 
   def  __init__(self):
     ''' INITIALIZE FUTURE OPTIONS '''
+    self.strctr = 1
+
+  def convertChar(self, char):
+	  if char in self.symbol_ids:
+		  return str(self.symbol_ids[char])
+	  else:
+		  return str(ord(char))
 
   def convertString(self, string):
     ''' Some characters are not correctly encoded when using the print() function. '''
-    output = []
-    for i in list(string):
-      if i in self.symbol_ids:
-        output.append("Keyboard.write(" + str(self.symbol_ids[i]) + ");")
-      else:
-        output.append("Keyboard.write(" + str(ord(i)) + ");")
-
-      output.append("delay(10);")
-    return "\n".join(output)
+    output = "/*"+string+"*/\n"
+    output += "  byte str"+str(self.strctr)+"[] = { "+",".join(map(self.convertChar,list(string)))+" };\n"
+    output += "  writeStr(str"+str(self.strctr)+","+str(len(string))+");"
+    self.strctr += 1
+    return output
 
   def convert(self, script):
     instructions = []
