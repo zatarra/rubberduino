@@ -2,6 +2,7 @@
 import json
 import sys
 import os
+from optparse import OptionParser
 
 ''' 
 Simple Rubber Ducky script converter by David Gouveia <david.gouveia [_at_] gmail.com
@@ -94,14 +95,29 @@ void loop(){}
 
 
 if __name__ == "__main__":
-  if len(sys.argv) > 1 and os.path.isfile(sys.argv[1]):
-    try:
-      with open(sys.argv[1], "r") as r:
-        print RubberDuino().convert(r.read())
-        sys.exit(0)
-    except Exception as e:
-      print "Error converting script: %s" % e.message
-      sys.exit(1)
+  parser = OptionParser(usage="usage: %prog -i filename",
+                        version="%prog 1.0")
+  parser.add_option("-i", "--ifile",
+                    dest="filename",                  
+                    help="Rubber ducky script to be converted")
+  parser.add_option("-o", "--outfile",
+                    action="store", # optional because action defaults to "store"
+                    dest="outfile",
+                    default="out.c",
+                    help="Output file",)
+  (options, args) = parser.parse_args()
+
+  if options.filename == None:
+      parser.error("Usage: %s -i <file to convert> -o <output file>")
   else:
-    print "Usage:\n\n%s <rubber ducky script to be converted>" % sys.argv[0]
-    sys.exit(1)
+    filename = options.filename
+    outfile = options.outfile
+    print "[SYS] Loading payload: ", filename
+    with open(filename, "r") as r:
+      data = RubberDuino().convert(r.read())
+      print "[SYS] Payload converted: %s Lines" % len(data.split("\n"))
+      with open(outfile, "w") as o:
+        print "[SYS] Writting to file... ", outfile
+        o.write(data)
+      sys.exit(0)
+ 
